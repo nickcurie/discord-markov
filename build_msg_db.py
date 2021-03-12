@@ -55,6 +55,13 @@ async def build_db_for_channel(list_of_channels):
 # once the task is done, you can ctrl-c this process
 if len(sys.argv) >=1:
     client.loop.create_task(build_db_for_channel(sys.argv))
-    client.run(os.environ["DISCORD_TOKEN"])
+    #mac users lol
+    system = platform.system()
+    print(system)
+    if system == "Linux":
+        client.run(os.environ["DISCORD_TOKEN"])
+    elif system == "Windows":
+        load_dotenv()
+        client.run(os.getenv('DISCORD_TOKEN'))
 else:
     print("No channels were input in Command Line")
