@@ -3,6 +3,8 @@ import sqlite3
 import time
 import os
 import sys
+import platform
+from dotenv import load_dotenv
 
 # channel ID to read messages from
 # currently only supports building db
@@ -54,4 +56,11 @@ async def build_db_for_channel(channel_id):
 # https://stackoverflow.com/questions/63846749/how-to-send-message-without-command-or-event-discord-py
 # once the task is done, you can ctrl-c this process
 client.loop.create_task(build_db_for_channel(general_channel_id))
-client.run(os.environ["DISCORD_TOKEN"])
+#mac users lol
+system = platform.system()
+print(system)
+if system == "Linux":
+    client.run(os.environ["DISCORD_TOKEN"])
+elif system == "Windows":
+    load_dotenv()
+    client.run(os.getenv('DISCORD_TOKEN'))
